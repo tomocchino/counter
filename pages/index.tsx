@@ -3,32 +3,33 @@ import { useState } from "react";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  let [words, setWords] = useState({});
+  let [words, setWords] = useState(new Map());
 
-  function handleSubmit(event) {
+  function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    let form = event.target;
+    let form = event.target as HTMLFormElement;
     let input = form.input;
     let word = input.value.toLowerCase();
     form.reset();
     input.focus();
-
     if (word) {
-      let count = words[word] ? words[word] + 1 : 1;
-      setWords({ ...words, [word]: count });
+      let count = words.has(word) ? words.get(word) + 1 : 1;
+      words.set(word, count);
+      setWords(new Map(words));
     }
   }
 
-  function handleClick(event) {
-    let word = event.target.value.toLowerCase();
+  function handleClick(event: React.MouseEvent) {
+    let input = event.target as HTMLInputElement;
+    let word = input.value.toLowerCase();
     let delta = event.altKey ? -1 : 1;
-    let count = words[word] + delta;
+    let count = words.get(word) + delta;
     if (count > 0) {
-      setWords({ ...words, [word]: count });
+      words.set(word, count);
     } else {
-      delete words[word];
-      setWords({ ...words });
+      words.delete(word);
     }
+    setWords(new Map(words));
   }
 
   return (
@@ -56,7 +57,7 @@ export default function Home() {
                 </form>
               </td>
             </tr>
-            {Object.keys(words)
+            {Array.from(words.keys())
               .sort()
               .map((word) => {
                 return (
@@ -66,7 +67,7 @@ export default function Home() {
                         {word}
                       </button>
                     </td>
-                    <td className={styles.wordCount}>{words[word]}</td>
+                    <td className={styles.wordCount}>{words.get(word)}</td>
                   </tr>
                 );
               })}
