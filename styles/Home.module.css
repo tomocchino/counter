@@ -1,9 +1,34 @@
 .container {
-  min-height: 100vh;
-  padding: 0 0.5rem;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  font-size: 2rem;
+}
+
+.wordInput {
+  font-size: 2rem;
+  padding: 0.5rem;
+}
+
+.wordList {
+  list-style: none;
+  text-align: right;
+  border-spacing: 4px;
+  border-collapse: separate;
+}
+
+.wordButton {
+  width: 75%;
+}
+
+.wordButton button {
+  font-size: 2rem;
+  padding: 0.5rem;
+  text-align: left;
+  width: 100%;
+}
+
+.wordCount {
+  text-align: left;
+  width: 25%;
+  padding: 0.5rem;
 }
