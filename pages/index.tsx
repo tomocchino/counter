@@ -35,10 +35,10 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Word Counter</title>
+        <title>Counter</title>
         <meta
           name="description"
-          content="Simple app for counting repeated spoken words"
+          content="Simple app for counting things, like repeatedly spoken words or light switches"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -51,7 +51,7 @@ export default function Home() {
                   <input
                     name="input"
                     type="text"
-                    placeholder="word"
+                    placeholder="word or thing"
                     className={styles.wordInput}
                   />
                 </form>
