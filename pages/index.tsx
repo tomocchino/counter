@@ -19,10 +19,19 @@ export default function Home() {
     }
   }
 
-  function handleClick(event: React.MouseEvent) {
+  function handleButtonClick(event: React.MouseEvent) {
     let input = event.target as HTMLInputElement;
     let word = input.value.toLowerCase();
-    let delta = event.altKey ? -1 : 1;
+    updateWords(word, event.altKey ? -1 : 1);
+  }
+
+  function handleCountTap(event: React.MouseEvent) {
+    let input = event.target as HTMLInputElement;
+    let word = input.dataset.for || "";
+    updateWords(word, -1);
+  }
+
+  function updateWords(word: string, delta: number) {
     let count = words.get(word) + delta;
     if (count > 0) {
       words.set(word, count);
@@ -63,11 +72,16 @@ export default function Home() {
                 return (
                   <tr className={styles.wordRow} key={word}>
                     <td className={styles.wordButton}>
-                      <button value={word} onClick={handleClick}>
+                      <button value={word} onClick={handleButtonClick}>
                         {word}
                       </button>
                     </td>
-                    <td className={styles.wordCount}>{words.get(word)}</td>
+                    <td
+                      className={styles.wordCount}
+                      data-for={word}
+                      onClick={handleCountTap}>
+                      {words.get(word)}
+                    </td>
                   </tr>
                 );
               })}
