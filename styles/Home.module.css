@@ -1,19 +1,21 @@
 .container {
   display: flex;
+  font-size: 2rem;
   justify-content: center;
-  font-size: 2rem;
-}
-
-.wordInput {
-  font-size: 2rem;
   padding: 0.5rem;
 }
 
+.wordInput {
+  border-radius: 4px;
+  border: 1px solid #222;
+  font-size: 2rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+
 .wordList {
-  list-style: none;
-  text-align: right;
-  border-spacing: 4px;
   border-collapse: separate;
+  text-align: right;
 }
 
 .wordButton {
@@ -21,6 +23,9 @@
 }
 
 .wordButton button {
+  border-radius: 4px;
+  border: 1px solid #222;
+  color: #222;
   font-size: 2rem;
   padding: 0.5rem;
   text-align: left;
@@ -28,7 +33,7 @@
 }
 
 .wordCount {
+  padding: 0.5rem;
   text-align: left;
   width: 25%;
-  padding: 0.5rem;
 }
