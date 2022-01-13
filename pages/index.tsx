@@ -9,7 +9,7 @@ export default function Home() {
     event.preventDefault();
     let form = event.target as HTMLFormElement;
     let input = form.input;
-    let word = input.value.toLowerCase();
+    let word = input.value.toLowerCase().trim();
     form.reset();
     input.focus();
     if (word) {
