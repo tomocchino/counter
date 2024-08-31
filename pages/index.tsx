@@ -1,9 +1,41 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
   let [words, setWords] = useState(new Map());
+  let [audioContext, setAudioContext] = useState<AudioContext | null>(null);
+
+  useEffect(() => {
+    let context = new (window.AudioContext ||
+      (window as any).webkitAudioContext)();
+    setAudioContext(context);
+    return () => {
+      context.close();
+    };
+  }, []);
+
+  let playClickSound = useCallback(
+    (hz: number = 800) => {
+      if (audioContext) {
+        let oscillator = audioContext.createOscillator();
+        oscillator.type = "sine";
+        oscillator.frequency.setValueAtTime(hz, audioContext.currentTime); // frequency in hertz
+
+        let gainNode = audioContext.createGain();
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(
+          0.001,
+          audioContext.currentTime + 0.1
+        );
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.1);
+      }
+    },
+    [audioContext]
+  );
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -13,9 +45,11 @@ export default function Home() {
     form.reset();
     input.focus();
     if (word) {
-      let count = words.has(word) ? words.get(word) + 1 : 1;
-      words.set(word, count);
-      setWords(new Map(words));
+      if (!words.has(word)) {
+        words.set(word, 0);
+        playClickSound(1200);
+      }
+      updateWords(word, 1);
     }
   }
 
@@ -32,6 +66,7 @@ export default function Home() {
   }
 
   function updateWords(word: string, delta: number) {
+    playClickSound(delta > 0 ? 800 : 400);
     let count = words.get(word) + delta;
     if (count > 0) {
       words.set(word, count);
