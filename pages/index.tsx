@@ -3,11 +3,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  let [words, setWords] = useState(new Map());
-  let [audioContext, setAudioContext] = useState<AudioContext | null>(null);
+  const [words, setWords] = useState(new Map());
+  const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
 
   useEffect(() => {
-    let context = new (window.AudioContext ||
+    const context = new (window.AudioContext ||
       (window as any).webkitAudioContext)();
     setAudioContext(context);
     return () => {
@@ -15,14 +15,14 @@ export default function Home() {
     };
   }, []);
 
-  let playClickSound = useCallback(
+  const playClickSound = useCallback(
     (hz: number = 800) => {
       if (audioContext) {
-        let oscillator = audioContext.createOscillator();
+        const oscillator = audioContext.createOscillator();
         oscillator.type = "sine";
-        oscillator.frequency.setValueAtTime(hz, audioContext.currentTime); // frequency in hertz
+        oscillator.frequency.setValueAtTime(hz, audioContext.currentTime);
 
-        let gainNode = audioContext.createGain();
+        const gainNode = audioContext.createGain();
         gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(
           0.001,
@@ -39,9 +39,9 @@ export default function Home() {
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    let form = event.target as HTMLFormElement;
-    let input = form.input;
-    let word = input.value.toLowerCase().trim();
+    const form = event.target as HTMLFormElement;
+    const input = form.input;
+    const word = input.value.toLowerCase().trim();
     form.reset();
     input.focus();
     if (word) {
@@ -54,20 +54,20 @@ export default function Home() {
   }
 
   function handleButtonClick(event: React.MouseEvent) {
-    let input = event.target as HTMLInputElement;
-    let word = input.value.toLowerCase();
+    const input = event.target as HTMLInputElement;
+    const word = input.value.toLowerCase();
     updateWords(word, event.altKey ? -1 : 1);
   }
 
   function handleCountTap(event: React.MouseEvent) {
-    let input = event.target as HTMLInputElement;
-    let word = input.dataset.for || "";
+    const input = event.target as HTMLInputElement;
+    const word = input.dataset.for || "";
     updateWords(word, -1);
   }
 
   function updateWords(word: string, delta: number) {
     playClickSound(delta > 0 ? 800 : 400);
-    let count = words.get(word) + delta;
+    const count = words.get(word) + delta;
     if (count > 0) {
       words.set(word, count);
     } else {

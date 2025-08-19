@@ -9,21 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "15.0.3",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106"
+    "next": "15.4.7",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "15.0.3",
-    "@types/node": "^22.5.1",
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "eslint": "^8.56.0",
-    "eslint-config-next": "15.0.3",
-    "typescript": "^5.5.4"
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "npm:types-react@19.0.0-rc.1"
-    }
+    "@next/eslint-plugin-next": "15.4.7",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.1.7",
+    "eslint": "^9.33.0",
+    "eslint-config-next": "15.4.7",
+    "typescript": "^5.9.2"
   }
 }
